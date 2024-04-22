@@ -30,7 +30,7 @@ The objective of the game is to guess the hidden word correctly before accumulat
    - Enter the entire word to guess the entire word.
 
 4. **Feedback:**
-   - Correct guesses will be shown in the word display.
+   - Correct guesses will be shown in the terminal.
    - Incorrect guesses will decrease your remaining attempts and draw the hangman.
 
 5. **Winning and Losing:**
