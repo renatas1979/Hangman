@@ -50,7 +50,7 @@ The objective of the game is to guess the hidden word correctly before accumulat
 1. Clone the repository to your local machine.
 2. Navigate to the project directory in the terminal.
 4. Install requirements.txt (pip install requirements.txt)
-3. Run the Python script using the command `python hangman.py`or `python3 hangman.py` depening on your system.
+3. Run the Python script using the command `python hangman.py`or `python3 hangman.py` depending on your system.
 
 Enjoy the game and have fun!
 
