@@ -9,7 +9,7 @@ If the guessed letter is not in the word, the player receives a strike.
 The player is allowed a certain number of strikes before their body is drawn on the gallows. 
 The game continues until the player guesses the entire word or makes enough mistakes to have their figure completely drawn.
 
-Objective of the Game:
+# Objective of the Game:
 The objective of the game is to guess the hidden word correctly before accumulating too many strikes.
 
 
