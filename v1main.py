@@ -4,9 +4,12 @@ from typing import List
 import time
 import pygame
 
+
+
 def clear_screen() -> None:
     os.system("cls" if os.name == "nt" else "clear")
 clear_screen()
+
 
 def draw_hanger(failed_attempts: int) -> str:
     hanger_parts = [
@@ -86,16 +89,33 @@ def draw_hanger(failed_attempts: int) -> str:
         clear_screen()
         return "\n".join(hanger_parts[failed_attempts])
     else:
+        
         return "Game over"
 
-def choose_word(language: str) -> str:
-    folder_path = 'words_lists'
-    file_name = 'lt_words.txt' if language.lower() == 'lt' else 'en_words.txt'
-    file_path = os.path.join(folder_path, file_name)
-    with open(file_path, 'r', encoding='utf-8') as file:
-        words = file.readlines()
+
+
+
+
+def choose_word():
+    language = input("Choose a language (lt for Lithuanian, en for English): ")
+    
+    if language.lower() == 'lt':
+        with open('lt_words.txt', 'r', encoding='utf-8') as file:
+            words = file.readlines()
+    elif language.lower() == 'en':
+        with open('en_words.txt', 'r') as file:
+            words = file.readlines()
+    else:
+        print("Invalid choice. Please enter 'lt' for Lithuanian or 'en' for English.")
+        return None
+    
+    
     words = [word.strip() for word in words]
-    return random.choice(words)
+    random_word = random.choice(words)
+    
+    return random_word
+
+
 
 def print_word(word: str, guessed_letters: List[str]) -> str:
     display = ""
@@ -106,21 +126,17 @@ def print_word(word: str, guessed_letters: List[str]) -> str:
             display += "_ "
     return display.strip()
 
+
 def print_guessed_letters(guessed_letters: List[str]) -> str:
     return "Guessed letters: " + ", ".join(guessed_letters)
 
 def game_logic() -> None:
-    print("Welcome to a Hangman game !")
+    print("Welcome to a Hangman game")
     max_wrong_guesses: int = 6
     max_guesses: int = 10
 
     while True:
-        language = input("Choose a language (lt for Lithuanian, en for English): ")
-        if language.lower() not in ['lt', 'en']:
-            print("Invalid choice. Please enter 'lt' for Lithuanian or 'en' for English.")
-            continue
-
-        word: str = choose_word(language)
+        word: str = choose_word()
         correct_guesses: List[str] = []
         wrong_guesses: List[str] = []
         guesses_left: int = max_guesses
@@ -135,7 +151,7 @@ def game_logic() -> None:
             if guess == word:
                 print("Congrats! You guessed the word correctly", word)
                 pygame.mixer.init()
-                pygame.mixer.music.load("sound_effects/win.mp3")  
+                pygame.mixer.music.load("win.mp3")  
                 pygame.mixer.music.play()
                 break
             
@@ -158,7 +174,7 @@ def game_logic() -> None:
     
                 if guess == word:
                     pygame.mixer.init()
-                    pygame.mixer.music.load("sound_effects/win.mp3")  
+                    pygame.mixer.music.load("win.mp3")  
                     pygame.mixer.music.play()
                     
                     print("Congrats! You guessed the word correctly !", word)
@@ -172,7 +188,7 @@ def game_logic() -> None:
 
                         print("Congrats! You guessed the word correctly !", word)
                         pygame.mixer.init()
-                        pygame.mixer.music.load("sound_effects/win.mp3")  
+                        pygame.mixer.music.load("win.mp3")  
                         pygame.mixer.music.play()
                         break
                 else:
@@ -185,7 +201,7 @@ def game_logic() -> None:
         if guess != word and set(word) == set(correct_guesses):    
             print("Congrats! You guessed the word correctly !", word)
             pygame.mixer.init()
-            pygame.mixer.music.load("sound_effects/win.mp3")  
+            pygame.mixer.music.load("win.mp3")  
             pygame.mixer.music.play()
 
         elif guess == word:
@@ -193,7 +209,7 @@ def game_logic() -> None:
         else:
             print(draw_hanger(len(wrong_guesses)))
             pygame.mixer.init()
-            pygame.mixer.music.load("sound_effects/lose.mp3")  
+            pygame.mixer.music.load("lose.mp3")  
             pygame.mixer.music.play()  
             print("Ooops, you didn't guess the word. The word was:", word)
 
@@ -204,5 +220,8 @@ def game_logic() -> None:
             break
 
         clear_screen()
+
+
+
 
 game_logic()
